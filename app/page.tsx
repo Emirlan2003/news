@@ -1,6 +1,6 @@
 'use client';
 
-import styles from './page.module.css'
+import styles from './styles/page.module.css';
 import { CardList, SortBlock } from './features';
 
 export default function Home() {

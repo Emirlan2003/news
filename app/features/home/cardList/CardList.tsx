@@ -10,6 +10,7 @@ import { formatDate } from '@/app/utils';
 import { Spinner } from '@/app/uiKit';
 import { useSearch } from '../useSearch';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import Link from 'next/link';
 
 const { Meta } = Card;
 
@@ -41,7 +42,9 @@ export function CardList() {
           >
             <Meta title={item.webTitle} description={formatDate(item.webPublicationDate)} />
             <Row className={styles.detailsBtn}>
-              <Button>Details <RightOutlined rev={undefined} /></Button>
+              <Link href={`/news/${item.id}`} key={item.id}>
+                <Button>Details <RightOutlined rev={undefined} /></Button>
+              </Link>
             </Row>
           </Card>
           ))
