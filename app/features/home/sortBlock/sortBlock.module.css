@@ -1,0 +1,27 @@
+.sortBlock {
+  margin-top: 50px;
+  width: 425px;
+  height: 125px;
+  border-radius: 10px;
+  background-color: rgb(77, 89, 105);
+  padding: 20px;
+}
+
+.input {
+  margin: 15px;
+  width: 300px;
+}
+
+.sortSelect {
+  margin: 15px;
+  width: 160px;
+}
+
+.itemsSelect {
+  margin: 15px;
+  width: 80px;
+}
+
+.sortText {
+  color: white;
+}
