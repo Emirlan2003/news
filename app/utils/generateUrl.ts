@@ -13,6 +13,7 @@ export function generateNewsUrl(props: INewsProps): string {
   queryParams.append(ApiParameters.OrderBy, props.dates);
   queryParams.append(ApiParameters.PageSize, props.onPage);
   queryParams.append(ApiParameters.Query, props.query);
+  queryParams.append(ApiParameters.Page, props.page);
 
   return `${baseUrl}?${queryParams.toString()}`;
 };

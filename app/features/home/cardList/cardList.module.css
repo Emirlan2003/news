@@ -16,3 +16,8 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.infiniteScroll {
+  display: flex;
+  justify-content: center;
+}

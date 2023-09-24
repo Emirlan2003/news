@@ -20,11 +20,24 @@ const initialState: NewsState = {
   filter: {
     dates: 'newest',
     onPage: '10',
+    page: '1',
   },
 }
 
 export const getNews = createAsyncThunk(
   SliceConstants.GetNews,
+  async function (props: INewsProps,{ rejectWithValue }) {
+    try {
+      const { data } = await axios.get(generateNewsUrl(props));
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data.message);
+    }
+  },
+);
+
+export const getMoreNews = createAsyncThunk(
+  SliceConstants.GetMoreNews,
   async function (props: INewsProps,{ rejectWithValue }) {
     try {
       const { data } = await axios.get(generateNewsUrl(props));
@@ -70,6 +83,13 @@ export const newsSlice = createSlice({
           loading: false,
           filter: payload
           ,
+        };
+      });
+      builder.addCase(getMoreNews.fulfilled, (state, { payload }) => {
+        return {
+          ...state,
+          loading: false,
+          news: [...state.news, ...payload.response.results],
         };
       });
     },

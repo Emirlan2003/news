@@ -4,6 +4,7 @@ export const ApiParameters = {
   OrderBy: "order-by",
   PageSize: "page-size",
   Query: "q",
+  Page: "page",
 };
 
 export const ApiSettings = {

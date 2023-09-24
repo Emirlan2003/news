@@ -14,9 +14,11 @@ export interface INewsProps {
   dates: string;
   onPage: string;
   query: string;
+  page: string;
 }
 
 export interface IFilter {
   dates: string;
   onPage: string;
+  page: string;
 }
