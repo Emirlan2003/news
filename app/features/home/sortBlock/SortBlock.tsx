@@ -29,9 +29,6 @@ export function SortBlock() {
         onChange={sortByDate}
         options={byDateSelect}
       />
-      <span className={styles.sortText}>
-        Items on page:
-      </span>
       <Select
         defaultValue={filter.onPage}
         className={styles.itemsSelect}

@@ -1,7 +1,13 @@
 'use client';
 
+import { MainInfo } from "@/app/features";
+import { INews } from "@/app/types";
 import { generateNewsDetailsUrl } from "@/app/utils/generateUrl";
 import { GetServerSidePropsContext } from "next";
+
+type PropsType = {
+  data: INews,
+}
 
 async function fetchData(id: string) {
   const response = await fetch(generateNewsDetailsUrl(id));
@@ -23,12 +29,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   };
 };
 
-export default function Details({ data }: any) {
-  console.log("data", data);
-
+export default function Details({ data }: PropsType) {
   return (
-    <main>
-      helloo
-    </main>
+    <MainInfo data={data} />
   );
 };
