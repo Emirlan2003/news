@@ -1,0 +1,23 @@
+.cardList {
+  margin-top: 30px;
+  width: 80%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 300px;
+  margin: 10px;
+}
+
+.detailsBtn {
+  margin-top: 15px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.infiniteScroll {
+  display: flex;
+  justify-content: center;
+}

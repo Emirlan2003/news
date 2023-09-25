@@ -1,29 +1,57 @@
 'use client';
 
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { ApiParameters, SliceConstants } from '../../constants';
 import axios from 'axios';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { SliceConstants } from '../../constants';
+import { IFilter, INews, INewsProps } from '@/app/types';
+import { generateNewsUrl } from '@/app/utils/generateUrl';
 
 export interface NewsState {
-  news: any;
+  news: INews[];
   loading: boolean;
   value: number;
+  filter: IFilter;
 }
 
 const initialState: NewsState = {
   news: [],
   loading: false,
   value: 0,
+  filter: {
+    dates: 'newest',
+    onPage: '10',
+    page: '1',
+  },
 }
-
-const BASE_URL = process.env.BASE_URL;
-const API_KEY = process.env.API_KEY;
 
 export const getNews = createAsyncThunk(
   SliceConstants.GetNews,
-  async function (_,{ rejectWithValue }) {
+  async function (props: INewsProps,{ rejectWithValue }) {
     try {
-      const { data } = await axios.get(`${BASE_URL}?${ApiParameters.ApiKey}=${API_KEY}`);
+      const { data } = await axios.get(generateNewsUrl(props));
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data.message);
+    }
+  },
+);
+
+export const getMoreNews = createAsyncThunk(
+  SliceConstants.GetMoreNews,
+  async function (props: INewsProps,{ rejectWithValue }) {
+    try {
+      const { data } = await axios.get(generateNewsUrl(props));
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data.message);
+    }
+  },
+);
+
+export const setFilter = createAsyncThunk(
+  SliceConstants.SetFilter,
+  async function (data: IFilter, { rejectWithValue }) {
+    try {
       return data;
     } catch (error: any) {
       return rejectWithValue(error.response.data.message);
@@ -48,6 +76,21 @@ export const newsSlice = createSlice({
       });
       builder.addCase(getNews.rejected, (state) => {
         return { ...state, loading: false };
+      });
+      builder.addCase(setFilter.fulfilled, (state, { payload }) => {
+        return {
+          ...state,
+          loading: false,
+          filter: payload
+          ,
+        };
+      });
+      builder.addCase(getMoreNews.fulfilled, (state, { payload }) => {
+        return {
+          ...state,
+          loading: false,
+          news: [...state.news, ...payload.response.results],
+        };
       });
     },
 })
